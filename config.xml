@@ -24,4 +24,8 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <plugin name="cordova-plugin-inappbrowser" spec="~1.2.0" />
+    <preference name="xwalkVersion" value="16+" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
 </widget>
