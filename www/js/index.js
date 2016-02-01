@@ -48,9 +48,15 @@ var app = {
     },
     openBrowser: function() {
         // To Open Browser window
-        var ref = cordova.InAppBrowser.open('http://www.logic-square.com/', '_blank', 'location=no');
+        var ref = cordova.InAppBrowser.open('http://www.amazon.in/Apple-Macbook-MD101HN-Mavericks-Graphics/dp/B00DKMCB20', '_blank', 'location=yes');
         ref.addEventListener('loadstart', function(event) {
-            console.log(event.url);
+            alert("loadstart" + event.url);
+        });
+        ref.addEventListener('loadstop', function(event) {
+            alert("loadstop:" + event.url);
+        });
+        ref.addEventListener('exit', function(event) {
+            alert("exit:" + event.url);
         });
 
     }
