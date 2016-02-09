@@ -49,10 +49,10 @@ var app = {
     openThemedBrowser: function() {
         // To Open Browser window
         var browserOptions = {
-            /* title: {
+             title: {
                  color: '#003264ff',
-                 showPageTitle: true
-             },*/
+                 staticText:'Price'
+             },
             closeButton: {
                 wwwImage: 'img/close.png',
                 imagePressed: 'close_pressed',
@@ -73,11 +73,39 @@ var app = {
             backButtonCanClose: true
 
         };
+        var CustomHeader = {
+            css: '#customheader { width:100%;height:50px;background-color:black;color:white; }',
+            html: function() {
+                var code = 'var div = document.createElement("div");';
+                code += 'div.id = "customheader";';
+                code += 'if (document.body.firstChild) {';
+                code += 'document.body.insertBefore(div, document.body.firstChild);';
+                code += '}';
+                code += 'else {';
+                code += 'document.body.appendChild(div);';
+                code += '}';
+                code+='div.innerHTML = "Price";'
+                return code;
+            }
+        };
         var ref = cordova.ThemeableBrowser.open('http://www.amazon.in/Apple-Macbook-MD101HN-Mavericks-Graphics/dp/B00DKMCB20', '_blank', browserOptions);
         ref.addEventListener('loadstart', function(event) {
             alert("loadstart" + event.url);
         });
         ref.addEventListener('loadstop', function(event) {
+            code = CustomHeader.html();
+            // Inject your JS code!
+            ref.executeScript({
+                code: code
+            }, function() {
+                console.log("injected (callback).");
+            });
+            // Inject CSS!
+            ref.insertCSS({
+                code: CustomHeader.css
+            }, function() {
+                console.log("CSS inserted!");
+            });
             alert("loadstop:" + event.url);
         });
         ref.addEventListener('exit', function(event) {
