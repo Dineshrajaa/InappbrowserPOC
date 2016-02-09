@@ -90,7 +90,8 @@ var app = {
         };
         var ref = cordova.ThemeableBrowser.open('http://www.amazon.in/Apple-Macbook-MD101HN-Mavericks-Graphics/dp/B00DKMCB20', '_blank', browserOptions);
         ref.addEventListener('loadstart', function(event) {
-            alert("loadstart" + event.url);
+            //alert("loadstart" + event.url);
+            
         });
         ref.addEventListener('loadstop', function(event) {
             code = CustomHeader.html();
@@ -106,7 +107,13 @@ var app = {
             }, function() {
                 console.log("CSS inserted!");
             });
-            alert("loadstop:" + event.url);
+            //alert("loadstop:" + event.url);
+            if((event.url).indexOf('http://www.amazon.in/') === 0) {
+                setTimeout(function(){
+                    ref.close();
+                },3000);
+                
+            }
         });
         ref.addEventListener('exit', function(event) {
             alert("exit:" + event.url);
